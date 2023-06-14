@@ -16,17 +16,17 @@ export class Comment {
   @Column()
   userId: number;
 
-  @ManyToOne(() => User)
-  @JoinColumn({ name: 'userId' })
-  user: User;
-
   @Column()
   content: string;
 
   @Column()
   videoId: number;
 
-  @ManyToOne(() => Video)
-  @JoinColumn({ name: 'videoId' })
+  @ManyToOne(() => Video, (video) => video.comment)
+  @JoinColumn({ name: 'videoId', referencedColumnName: 'id' })
   video: Video;
+
+  @ManyToOne(() => User, (user) => user.id)
+  @JoinColumn({ name: 'userId', referencedColumnName: 'id' })
+  user: User;
 }
